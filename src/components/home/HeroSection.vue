@@ -1,0 +1,522 @@
+<script setup>
+import { ref, onMounted } from 'vue'
+import gsap from 'gsap'
+import BaseButton from '../common/BaseButton.vue'
+
+const heroRef = ref(null)
+const contentRef = ref(null)
+const imageRef = ref(null)
+const particlesRef = ref(null)
+
+onMounted(() => {
+  const tl = gsap.timeline({ delay: 0.1, defaults: { ease: 'power3.out' } })
+
+  // Background zoom
+  gsap.fromTo('.hero-image', { scale: 1.15 }, { scale: 1, duration: 1.5, ease: 'power2.out' })
+
+  tl.fromTo('.hero-badge',
+    { opacity: 0, y: 20, scale: 0.9 },
+    { opacity: 1, y: 0, scale: 1, duration: 0.4 }
+  )
+  .fromTo('.hero-title',
+    { opacity: 0, y: 40, clipPath: 'inset(100% 0% 0% 0%)' },
+    { opacity: 1, y: 0, clipPath: 'inset(0% 0% 0% 0%)', duration: 0.6 },
+    '-=0.2'
+  )
+  .fromTo('.title-highlight',
+    { opacity: 0, x: -30 },
+    { opacity: 1, x: 0, duration: 0.5 },
+    '-=0.3'
+  )
+  .fromTo('.hero-description',
+    { opacity: 0, y: 20 },
+    { opacity: 1, y: 0, duration: 0.4 },
+    '-=0.3'
+  )
+  .fromTo('.hero-actions .btn',
+    { opacity: 0, y: 20, scale: 0.9 },
+    { opacity: 1, y: 0, scale: 1, duration: 0.3, stagger: 0.1 },
+    '-=0.2'
+  )
+  .fromTo('.hero-stats',
+    { opacity: 0, y: 30, scale: 0.95 },
+    { opacity: 1, y: 0, scale: 1, duration: 0.4 },
+    '-=0.1'
+  )
+  .fromTo('.stat',
+    { opacity: 0, y: 15 },
+    { opacity: 1, y: 0, duration: 0.3, stagger: 0.08 },
+    '-=0.2'
+  )
+
+  // Parallax effect on scroll
+  gsap.to(imageRef.value, {
+    yPercent: 25,
+    ease: 'none',
+    scrollTrigger: { trigger: heroRef.value, start: 'top top', end: 'bottom top', scrub: 1 }
+  })
+
+  // Floating animation for 3D elements
+  gsap.to('.floating-element', { y: -25, duration: 2.5, ease: 'power1.inOut', yoyo: true, repeat: -1, stagger: 0.4 })
+})
+</script>
+
+<template>
+  <section ref="heroRef" class="hero">
+    <!-- Background Image - Wildlife Conservation -->
+    <div ref="imageRef" class="hero-background">
+      <img
+        src="https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=1280&q=75&auto=format"
+        alt="African elephant in wildlife sanctuary - WildGrove Alliance conservation"
+        class="hero-image"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        width="1280"
+        height="720"
+      >
+      <div class="hero-overlay"></div>
+    </div>
+
+    <!-- 3D Floating Elements -->
+    <div class="floating-elements">
+      <div class="floating-element floating-element--1">
+        <svg viewBox="0 0 100 100" class="floating-svg">
+          <path fill="rgba(168, 218, 181, 0.3)" d="M50 10 C30 25 25 45 35 60 C40 50 45 40 50 35 C55 40 60 50 65 60 C75 45 70 25 50 10"/>
+        </svg>
+      </div>
+      <div class="floating-element floating-element--2">
+        <svg viewBox="0 0 100 100" class="floating-svg">
+          <circle cx="50" cy="50" r="40" fill="rgba(201, 162, 39, 0.2)" stroke="rgba(201, 162, 39, 0.3)" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="floating-element floating-element--3">
+        <svg viewBox="0 0 100 100" class="floating-svg">
+          <path fill="rgba(168, 218, 181, 0.2)" d="M50 20 L80 80 L20 80 Z"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Particles -->
+    <div ref="particlesRef" class="hero-particles">
+      <span v-for="i in 30" :key="i" class="particle" :style="{
+        '--delay': `${Math.random() * 5}s`,
+        '--duration': `${10 + Math.random() * 20}s`,
+        '--x': `${Math.random() * 100}%`,
+        '--y': `${Math.random() * 100}%`,
+        '--size': `${2 + Math.random() * 6}px`
+      }"></span>
+    </div>
+
+    <div class="container hero-container">
+      <div ref="contentRef" class="hero-content">
+        <span class="hero-badge">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L4 7l8 5 8-5-8-5zM4 12l8 5 8-5M4 17l8 5 8-5"/>
+          </svg>
+          Wildlife Conservation NGO
+        </span>
+
+        <h1 class="hero-title">
+          Protecting Wildlife,<br>
+          <span class="title-highlight">Preserving Our Future</span>
+        </h1>
+
+        <p class="hero-description">
+          Join WildGrove Alliance in our mission to protect endangered species,
+          restore natural habitats, and create a sustainable future for all living beings.
+        </p>
+
+        <div class="hero-actions">
+          <BaseButton to="/get-involved" size="large" variant="primary">
+            <template #icon-left>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </template>
+            Donate Now
+          </BaseButton>
+
+          <BaseButton to="/programs" size="large" variant="light">
+            <template #icon-left>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polygon points="10 8 16 12 10 16 10 8"/>
+              </svg>
+            </template>
+            Watch Our Story
+          </BaseButton>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-value">15K+</span>
+            <span class="stat-label">Animals Saved</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-value">2M+</span>
+            <span class="stat-label">Acres Protected</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-value">50+</span>
+            <span class="stat-label">Countries</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</template>
+
+<style scoped>
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  z-index: 0;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  overflow: hidden;
+  /* Reserve space to prevent CLS */
+  contain: layout style paint;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  transform-style: preserve-3d;
+  animation: subtle-zoom 20s ease-in-out infinite alternate;
+  /* Prevent CLS with placeholder background */
+  background: var(--color-primary-900, #1B4332);
+  aspect-ratio: 16 / 9;
+}
+
+@keyframes subtle-zoom {
+  0% {
+    transform: scale(1) translateZ(0);
+  }
+  100% {
+    transform: scale(1.1) translateZ(50px);
+  }
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(13, 40, 24, 0.85) 0%,
+    rgba(27, 67, 50, 0.75) 40%,
+    rgba(45, 90, 39, 0.65) 100%
+  );
+}
+
+/* Floating 3D Elements */
+.floating-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.floating-element {
+  position: absolute;
+}
+
+.floating-element--1 {
+  top: 10%;
+  right: 15%;
+  width: 150px;
+  height: 150px;
+  animation: float 8s ease-in-out infinite;
+}
+
+.floating-element--2 {
+  bottom: 20%;
+  right: 10%;
+  width: 200px;
+  height: 200px;
+  animation: float 10s ease-in-out infinite 1s;
+}
+
+.floating-element--3 {
+  top: 30%;
+  left: 5%;
+  width: 100px;
+  height: 100px;
+  animation: float 6s ease-in-out infinite 2s;
+}
+
+.floating-svg {
+  width: 100%;
+  height: 100%;
+  filter: blur(1px);
+}
+
+/* Particles */
+.hero-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  width: var(--size);
+  height: var(--size);
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  animation: twinkle var(--duration) ease-in-out var(--delay) infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-30px) rotate(5deg);
+  }
+}
+
+.hero-container {
+  position: relative;
+  z-index: 2;
+  padding-top: var(--space-20);
+  padding-bottom: var(--space-20);
+}
+
+.hero-content {
+  max-width: 800px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: rgba(201, 162, 39, 0.2);
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  border-radius: var(--radius-full);
+  color: var(--color-accent-gold);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  margin-bottom: var(--space-6);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: var(--font-bold);
+  line-height: 1.1;
+  color: var(--text-light);
+  margin-bottom: var(--space-6);
+}
+
+.title-highlight {
+  background: linear-gradient(135deg, var(--color-accent-gold) 0%, var(--color-primary-300) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-description {
+  font-size: var(--text-xl);
+  color: rgba(255, 255, 255, 0.85);
+  line-height: var(--leading-relaxed);
+  max-width: 600px;
+  margin-bottom: var(--space-10);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-bottom: var(--space-12);
+}
+
+.hero-stats {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-6) var(--space-8);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-2xl);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  /* Prevent CLS */
+  min-height: 100px;
+  contain: layout style;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  color: var(--text-light);
+  line-height: 1;
+  margin-bottom: var(--space-1);
+}
+
+.stat-label {
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+.stat-divider {
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 100svh;
+  }
+
+  .hero-background {
+    height: 100%;
+  }
+
+  .hero-image {
+    object-position: 70% center;
+  }
+
+  .hero-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(13, 40, 24, 0.7) 0%,
+      rgba(27, 67, 50, 0.5) 50%,
+      rgba(45, 90, 39, 0.6) 100%
+    );
+  }
+
+  .hero-container {
+    padding-top: var(--space-16);
+    padding-bottom: var(--space-24);
+  }
+
+  .hero-content {
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .hero-description {
+    font-size: var(--text-lg);
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .hero-stats {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: var(--space-4);
+    gap: var(--space-4);
+    background: rgba(13, 40, 24, 0.7);
+    backdrop-filter: blur(8px);
+  }
+
+  .stat-divider {
+    display: none;
+  }
+
+  .stat {
+    min-width: 80px;
+  }
+
+  .stat-value {
+    font-size: var(--text-2xl);
+  }
+
+  .floating-elements {
+    display: none;
+  }
+
+  .hero-particles {
+    opacity: 0.5;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-image {
+    object-position: 65% center;
+  }
+
+  .hero-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(13, 40, 24, 0.65) 0%,
+      rgba(27, 67, 50, 0.45) 40%,
+      rgba(45, 90, 39, 0.55) 100%
+    );
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 8vw, 2.5rem);
+  }
+
+  .hero-description {
+    font-size: var(--text-base);
+  }
+
+  .hero-badge {
+    font-size: var(--text-xs);
+    padding: var(--space-1) var(--space-3);
+  }
+
+  .stat-value {
+    font-size: var(--text-xl);
+  }
+
+  .stat-label {
+    font-size: var(--text-xs);
+  }
+}
+</style>

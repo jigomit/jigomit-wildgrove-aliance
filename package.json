@@ -1,0 +1,33 @@
+{
+  "name": "wildgrove-alliance",
+  "private": true,
+  "version": "1.0.0",
+  "description": "WildGrove Alliance - Wildlife Conservation NGO Website",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+  },
+  "dependencies": {
+    "@vueuse/core": "^14.1.0",
+    "gsap": "^3.14.1",
+    "vue": "^3.5.24",
+    "vue-router": "^4.6.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.1",
+    "terser": "^5.44.1",
+    "vite": "^7.2.4"
+  },
+  "keywords": [
+    "wildlife",
+    "conservation",
+    "ngo",
+    "vue",
+    "vite"
+  ],
+  "author": "WildGrove Alliance",
+  "license": "MIT"
+}
