@@ -10,7 +10,11 @@ const heroRef = ref(null)
     <!-- Background Image - Wildlife Conservation -->
     <div class="hero-background">
       <img
-        src="https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=1280&q=75&auto=format"
+        src="https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=800&q=70&auto=format"
+        srcset="https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=480&q=60&auto=format 480w,
+                https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=800&q=70&auto=format 800w,
+                https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=1280&q=75&auto=format 1280w"
+        sizes="100vw"
         alt="African elephant in wildlife sanctuary - WildGrove Alliance conservation"
         class="hero-image"
         loading="eager"

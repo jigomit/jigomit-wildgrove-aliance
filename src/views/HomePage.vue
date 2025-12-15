@@ -1,10 +1,13 @@
 <script setup>
+import { defineAsyncComponent } from 'vue'
 import HeroSection from '../components/home/HeroSection.vue'
-import MissionSection from '../components/home/MissionSection.vue'
-import ProgramsSection from '../components/home/ProgramsSection.vue'
-import ImpactSection from '../components/home/ImpactSection.vue'
-import TestimonialsSection from '../components/home/TestimonialsSection.vue'
-import CTASection from '../components/home/CTASection.vue'
+
+// Lazy load below-the-fold sections for better FCP/LCP
+const MissionSection = defineAsyncComponent(() => import('../components/home/MissionSection.vue'))
+const ProgramsSection = defineAsyncComponent(() => import('../components/home/ProgramsSection.vue'))
+const ImpactSection = defineAsyncComponent(() => import('../components/home/ImpactSection.vue'))
+const TestimonialsSection = defineAsyncComponent(() => import('../components/home/TestimonialsSection.vue'))
+const CTASection = defineAsyncComponent(() => import('../components/home/CTASection.vue'))
 </script>
 
 <template>

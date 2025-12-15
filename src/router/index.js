@@ -1,10 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import HomePage from '../views/HomePage.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('../views/HomePage.vue'),
+    component: HomePage,
     meta: {
       title: 'WildGrove Alliance - Wildlife Conservation NGO',
       description: 'Join WildGrove Alliance in protecting wildlife and preserving natural habitats for future generations.'
@@ -98,5 +99,18 @@ router.beforeEach((to, from, next) => {
 
   next()
 })
+
+// Prefetch other routes after initial load for faster navigation
+if (typeof window !== 'undefined') {
+  router.isReady().then(() => {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => {
+        import('../views/AboutPage.vue')
+        import('../views/ProgramsPage.vue')
+        import('../views/GetInvolvedPage.vue')
+      })
+    }
+  })
+}
 
 export default router

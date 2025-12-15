@@ -1,7 +1,10 @@
 <script setup>
 import { useRoute } from 'vue-router'
+import { defineAsyncComponent } from 'vue'
 import TheHeader from './components/common/TheHeader.vue'
-import TheFooter from './components/common/TheFooter.vue'
+
+// Lazy load footer since it's below the fold
+const TheFooter = defineAsyncComponent(() => import('./components/common/TheFooter.vue'))
 
 const route = useRoute()
 </script>

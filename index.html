@@ -13,8 +13,12 @@
     <!-- Performance hints -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="theme-color" content="#1B4332">
+
+    <!-- DNS Prefetch and Preconnect for critical resources -->
     <link rel="dns-prefetch" href="https://images.unsplash.com">
     <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 
     <!-- Open Graph -->
     <meta property="og:title" content="WildGrove Alliance - Wildlife Conservation NGO">
@@ -52,39 +56,47 @@
     }
     </script>
 
-    <!-- Fonts - Optimized loading with display=swap -->
+    <!-- Fonts - Optimized loading with display=optional to prevent FOIT -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=optional" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 
-    <!-- Preload critical hero image -->
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=1280&q=75&auto=format" fetchpriority="high">
+    <!-- Preload critical hero image - responsive -->
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=480&q=60&auto=format" media="(max-width: 480px)" fetchpriority="high">
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=800&q=70&auto=format" media="(min-width: 481px)" fetchpriority="high">
 
     <title>WildGrove Alliance - Wildlife Conservation NGO</title>
 
-    <!-- Critical CSS for above-the-fold content -->
+    <!-- Critical CSS for above-the-fold content - Inline for fastest FCP -->
     <style>
-      /* System font stack fallback */
-      body {
-        margin: 0;
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        -webkit-font-smoothing: antialiased;
-      }
-      #app { min-height: 100vh; }
+      /* Critical render path CSS */
+      *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+      html{font-size:16px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+      body{margin:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fff;color:#1a1a1a}
+      #app{min-height:100vh;display:flex;flex-direction:column}
       /* Reserve hero space to prevent CLS */
-      .hero {
-        min-height: 100vh;
-        background: #1B4332;
-        contain: layout style paint size;
-      }
+      .hero{min-height:100vh;background:#1B4332;contain:layout style paint size;display:flex;align-items:center;position:relative;overflow:hidden}
+      .hero-background{position:absolute;inset:0;overflow:hidden}
+      .hero-image{width:100%;height:100%;object-fit:cover}
+      .hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(13,40,24,.85) 0%,rgba(27,67,50,.75) 40%,rgba(45,90,39,.65) 100%)}
       /* Prevent layout shift from fonts */
-      h1, h2, h3, h4, h5, h6 {
-        font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
-      }
-      /* Reserve space for header */
-      .header {
-        height: 80px;
-        contain: layout style;
+      h1,h2,h3,h4,h5,h6{font-family:'Playfair Display',Georgia,'Times New Roman',serif;font-weight:600}
+      /* Header */
+      .header{position:fixed;top:0;left:0;right:0;height:80px;z-index:1000;contain:layout style}
+      .main-content{padding-top:80px;flex:1}
+      /* Hero content spacing */
+      .hero-container{position:relative;z-index:2;width:100%;max-width:1400px;margin:0 auto;padding:0 24px}
+      .hero-content{max-width:800px}
+      .hero-title{font-size:clamp(2.5rem,6vw,5rem);color:#fff;line-height:1.1;margin-bottom:24px}
+      .hero-description{font-size:1.25rem;color:rgba(255,255,255,.85);max-width:600px;margin-bottom:40px}
+      /* Container */
+      .container{width:100%;max-width:1400px;margin:0 auto;padding:0 24px}
+      @media(max-width:768px){
+        .hero{min-height:100svh}
+        .header{height:70px}
+        .main-content{padding-top:70px}
+        .hero-title{font-size:clamp(2rem,8vw,2.5rem)}
       }
     </style>
   </head>
