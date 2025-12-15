@@ -1,13 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SectionHeader from '../common/SectionHeader.vue'
-
-gsap.registerPlugin(ScrollTrigger)
-
-const sectionRef = ref(null)
-const cardsRef = ref([])
 
 const missionPoints = [
   {
@@ -26,38 +18,11 @@ const missionPoints = [
     description: 'Raising awareness about wildlife conservation through community programs, schools, and digital outreach.'
   }
 ]
-
-onMounted(() => {
-  // Section header animation
-  gsap.fromTo('.mission-section .section-header',
-    { opacity: 0, y: 30 },
-    { opacity: 1, y: 0, duration: 0.5, scrollTrigger: { trigger: sectionRef.value, start: 'top 80%' } }
-  )
-
-  // Cards animation
-  gsap.fromTo(cardsRef.value,
-    { opacity: 0, y: 50, scale: 0.95 },
-    { opacity: 1, y: 0, scale: 1, duration: 0.4, stagger: 0.1, ease: 'back.out(1.2)', scrollTrigger: { trigger: '.mission-grid', start: 'top 75%' } }
-  )
-
-  // Card icons animation
-  gsap.fromTo('.card-icon',
-    { rotateY: 90, opacity: 0 },
-    { rotateY: 0, opacity: 1, duration: 0.4, stagger: 0.1, delay: 0.2, scrollTrigger: { trigger: '.mission-grid', start: 'top 75%' } }
-  )
-
-  // Vision block animation
-  const visionTl = gsap.timeline({ scrollTrigger: { trigger: '.vision-block', start: 'top 75%' } })
-  visionTl
-    .fromTo('.vision-block', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5 })
-    .fromTo('.vision-label', { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.3 }, '-=0.2')
-    .fromTo('.vision-title', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4 }, '-=0.2')
-    .fromTo('.vision-decoration', { opacity: 0, scale: 0.8, rotate: -30 }, { opacity: 1, scale: 1, rotate: 0, duration: 0.5, ease: 'back.out(1.5)' }, '-=0.2')
-})
+// GSAP animations disabled to prevent CLS
 </script>
 
 <template>
-  <section ref="sectionRef" class="mission-section section">
+  <section class="mission-section section">
     <div class="container">
       <SectionHeader
         subtitle="Our Mission"
@@ -69,7 +34,6 @@ onMounted(() => {
         <div
           v-for="(point, index) in missionPoints"
           :key="index"
-          :ref="el => cardsRef[index] = el"
           class="mission-card"
         >
           <div class="card-icon">

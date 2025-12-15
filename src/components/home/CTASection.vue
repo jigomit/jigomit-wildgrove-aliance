@@ -1,36 +1,10 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import BaseButton from '../common/BaseButton.vue'
-
-gsap.registerPlugin(ScrollTrigger)
-
-const sectionRef = ref(null)
-const contentRef = ref(null)
-
-onMounted(() => {
-  // Background image
-  gsap.fromTo('.cta-image', { scale: 1.1 }, { scale: 1, duration: 1.5, ease: 'power2.out', scrollTrigger: { trigger: sectionRef.value, start: 'top 80%' } })
-  gsap.to('.cta-image', { yPercent: 15, ease: 'none', scrollTrigger: { trigger: sectionRef.value, start: 'top bottom', end: 'bottom top', scrub: 1 } })
-
-  // Content animation
-  const contentTl = gsap.timeline({ scrollTrigger: { trigger: sectionRef.value, start: 'top 70%' } })
-  contentTl
-    .fromTo('.cta-badge', { opacity: 0, y: 20, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.4 })
-    .fromTo('.cta-title', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5 }, '-=0.2')
-    .fromTo('.cta-description', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4 }, '-=0.3')
-    .fromTo('.cta-actions .btn', { opacity: 0, y: 20, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, stagger: 0.1, ease: 'back.out(1.3)' }, '-=0.2')
-    .fromTo('.quick-stats', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4 }, '-=0.1')
-    .fromTo('.quick-stat', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.3, stagger: 0.08 }, '-=0.2')
-
-  // Animate floating elements
-  gsap.to('.cta-float', { y: -25, duration: 2.5, ease: 'power1.inOut', yoyo: true, repeat: -1, stagger: 0.5 })
-})
+// GSAP animations disabled to prevent CLS
 </script>
 
 <template>
-  <section ref="sectionRef" class="cta-section">
+  <section class="cta-section">
     <!-- Background -->
     <div class="cta-background">
       <img
@@ -42,27 +16,10 @@ onMounted(() => {
       <div class="cta-overlay"></div>
     </div>
 
-    <!-- Floating Elements -->
-    <div class="cta-floats">
-      <div class="cta-float cta-float--1">
-        <svg viewBox="0 0 80 80">
-          <circle cx="40" cy="40" r="35" fill="rgba(255, 255, 255, 0.1)" stroke="rgba(255, 255, 255, 0.2)" stroke-width="2"/>
-        </svg>
-      </div>
-      <div class="cta-float cta-float--2">
-        <svg viewBox="0 0 60 60">
-          <path d="M30 5 L55 50 L5 50 Z" fill="rgba(201, 162, 39, 0.15)" stroke="rgba(201, 162, 39, 0.3)" stroke-width="2"/>
-        </svg>
-      </div>
-      <div class="cta-float cta-float--3">
-        <svg viewBox="0 0 100 100">
-          <path d="M50 10 C30 25 25 45 35 60 C40 50 45 40 50 35 C55 40 60 50 65 60 C75 45 70 25 50 10" fill="rgba(168, 218, 181, 0.2)"/>
-        </svg>
-      </div>
-    </div>
+    <!-- Floating elements removed to prevent CLS -->
 
     <div class="container">
-      <div ref="contentRef" class="cta-content">
+      <div class="cta-content">
         <span class="cta-badge">Get Involved</span>
         <h2 class="cta-title">
           Join the<br>

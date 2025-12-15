@@ -1,6 +1,5 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import gsap from 'gsap'
 
 const testimonials = [
   {
@@ -57,10 +56,7 @@ const prevSlide = () => {
 }
 
 const animateSlide = () => {
-  gsap.fromTo(sliderRef.value,
-    { opacity: 0, x: 50 },
-    { opacity: 1, x: 0, duration: 0.5, ease: 'power2.out' }
-  )
+  // GSAP animation disabled to prevent CLS - CSS handles transitions now
 }
 
 const startAutoplay = () => {
@@ -149,6 +145,8 @@ onUnmounted(() => {
 .testimonial-slider {
   max-width: 900px;
   margin: 0 auto;
+  min-height: 400px;
+  contain: layout style;
 }
 
 .slider-container {
@@ -184,6 +182,8 @@ onUnmounted(() => {
   padding: var(--space-10);
   border-radius: var(--radius-2xl);
   box-shadow: var(--shadow-xl);
+  min-height: 320px;
+  contain: layout style;
 }
 
 .quote-icon {

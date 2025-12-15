@@ -1,70 +1,14 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import gsap from 'gsap'
+import { ref } from 'vue'
 import BaseButton from '../common/BaseButton.vue'
 
 const heroRef = ref(null)
-const contentRef = ref(null)
-const imageRef = ref(null)
-const particlesRef = ref(null)
-
-onMounted(() => {
-  const tl = gsap.timeline({ delay: 0.1, defaults: { ease: 'power3.out' } })
-
-  // Background zoom
-  gsap.fromTo('.hero-image', { scale: 1.15 }, { scale: 1, duration: 1.5, ease: 'power2.out' })
-
-  tl.fromTo('.hero-badge',
-    { opacity: 0, y: 20, scale: 0.9 },
-    { opacity: 1, y: 0, scale: 1, duration: 0.4 }
-  )
-  .fromTo('.hero-title',
-    { opacity: 0, y: 40, clipPath: 'inset(100% 0% 0% 0%)' },
-    { opacity: 1, y: 0, clipPath: 'inset(0% 0% 0% 0%)', duration: 0.6 },
-    '-=0.2'
-  )
-  .fromTo('.title-highlight',
-    { opacity: 0, x: -30 },
-    { opacity: 1, x: 0, duration: 0.5 },
-    '-=0.3'
-  )
-  .fromTo('.hero-description',
-    { opacity: 0, y: 20 },
-    { opacity: 1, y: 0, duration: 0.4 },
-    '-=0.3'
-  )
-  .fromTo('.hero-actions .btn',
-    { opacity: 0, y: 20, scale: 0.9 },
-    { opacity: 1, y: 0, scale: 1, duration: 0.3, stagger: 0.1 },
-    '-=0.2'
-  )
-  .fromTo('.hero-stats',
-    { opacity: 0, y: 30, scale: 0.95 },
-    { opacity: 1, y: 0, scale: 1, duration: 0.4 },
-    '-=0.1'
-  )
-  .fromTo('.stat',
-    { opacity: 0, y: 15 },
-    { opacity: 1, y: 0, duration: 0.3, stagger: 0.08 },
-    '-=0.2'
-  )
-
-  // Parallax effect on scroll
-  gsap.to(imageRef.value, {
-    yPercent: 25,
-    ease: 'none',
-    scrollTrigger: { trigger: heroRef.value, start: 'top top', end: 'bottom top', scrub: 1 }
-  })
-
-  // Floating animation for 3D elements
-  gsap.to('.floating-element', { y: -25, duration: 2.5, ease: 'power1.inOut', yoyo: true, repeat: -1, stagger: 0.4 })
-})
 </script>
 
 <template>
   <section ref="heroRef" class="hero">
     <!-- Background Image - Wildlife Conservation -->
-    <div ref="imageRef" class="hero-background">
+    <div class="hero-background">
       <img
         src="https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=1280&q=75&auto=format"
         alt="African elephant in wildlife sanctuary - WildGrove Alliance conservation"
@@ -78,38 +22,10 @@ onMounted(() => {
       <div class="hero-overlay"></div>
     </div>
 
-    <!-- 3D Floating Elements -->
-    <div class="floating-elements">
-      <div class="floating-element floating-element--1">
-        <svg viewBox="0 0 100 100" class="floating-svg">
-          <path fill="rgba(168, 218, 181, 0.3)" d="M50 10 C30 25 25 45 35 60 C40 50 45 40 50 35 C55 40 60 50 65 60 C75 45 70 25 50 10"/>
-        </svg>
-      </div>
-      <div class="floating-element floating-element--2">
-        <svg viewBox="0 0 100 100" class="floating-svg">
-          <circle cx="50" cy="50" r="40" fill="rgba(201, 162, 39, 0.2)" stroke="rgba(201, 162, 39, 0.3)" stroke-width="2"/>
-        </svg>
-      </div>
-      <div class="floating-element floating-element--3">
-        <svg viewBox="0 0 100 100" class="floating-svg">
-          <path fill="rgba(168, 218, 181, 0.2)" d="M50 20 L80 80 L20 80 Z"/>
-        </svg>
-      </div>
-    </div>
-
-    <!-- Particles -->
-    <div ref="particlesRef" class="hero-particles">
-      <span v-for="i in 30" :key="i" class="particle" :style="{
-        '--delay': `${Math.random() * 5}s`,
-        '--duration': `${10 + Math.random() * 20}s`,
-        '--x': `${Math.random() * 100}%`,
-        '--y': `${Math.random() * 100}%`,
-        '--size': `${2 + Math.random() * 6}px`
-      }"></span>
-    </div>
+    <!-- Decorative elements removed to prevent CLS -->
 
     <div class="container hero-container">
-      <div ref="contentRef" class="hero-content">
+      <div class="hero-content">
         <span class="hero-badge">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 2L4 7l8 5 8-5-8-5zM4 12l8 5 8-5M4 17l8 5 8-5"/>

@@ -1,42 +1,32 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SectionHeader from '../common/SectionHeader.vue'
 import TestimonialSlider from '../common/TestimonialSlider.vue'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const sectionRef = ref(null)
 
 onMounted(() => {
-  // Header animation
-  gsap.fromTo('.testimonials-section .section-header',
-    { opacity: 0, y: 30 },
-    { opacity: 1, y: 0, duration: 0.5, scrollTrigger: { trigger: sectionRef.value, start: 'top 80%' } }
-  )
+  const runAnimations = async () => {
+    const gsap = (await import('gsap')).default
+    const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+    gsap.registerPlugin(ScrollTrigger)
 
-  // Background shapes
-  gsap.fromTo('.bg-shape',
-    { scale: 0.5, opacity: 0 },
-    { scale: 1, opacity: 0.5, duration: 0.8, stagger: 0.2, scrollTrigger: { trigger: sectionRef.value, start: 'top 80%' } }
-  )
+    gsap.fromTo('.testimonials-section .section-header',
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.4, scrollTrigger: { trigger: sectionRef.value, start: 'top 80%', once: true } }
+    )
 
-  // Testimonial slider
-  gsap.fromTo('.testimonial-slider',
-    { opacity: 0, y: 40 },
-    { opacity: 1, y: 0, duration: 0.5, delay: 0.2, scrollTrigger: { trigger: sectionRef.value, start: 'top 75%' } }
-  )
+    gsap.fromTo('.testimonial-slider',
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.4, scrollTrigger: { trigger: sectionRef.value, start: 'top 80%', once: true } }
+    )
+  }
 
-  // Trust badges
-  gsap.fromTo('.trust-label',
-    { opacity: 0, y: 20 },
-    { opacity: 1, y: 0, duration: 0.4, scrollTrigger: { trigger: '.trust-badges', start: 'top 85%' } }
-  )
-  gsap.fromTo('.badge',
-    { opacity: 0, scale: 0.8, y: 15 },
-    { opacity: 0.6, scale: 1, y: 0, duration: 0.3, stagger: 0.08, ease: 'back.out(1.3)', scrollTrigger: { trigger: '.badges-grid', start: 'top 85%' } }
-  )
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(runAnimations)
+  } else {
+    setTimeout(runAnimations, 200)
+  }
 })
 </script>
 

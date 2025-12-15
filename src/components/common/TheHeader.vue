@@ -1,7 +1,6 @@
 <script setup>
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
-import gsap from 'gsap'
 
 const route = useRoute()
 const isScrolled = ref(false)
@@ -42,10 +41,16 @@ const closeMobileMenu = () => {
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
 
-  gsap.fromTo(headerRef.value,
-    { y: -50, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.4, ease: 'power3.out', delay: 0 }
-  )
+  // Defer GSAP loading
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(async () => {
+      const gsap = (await import('gsap')).default
+      gsap.fromTo(headerRef.value,
+        { y: -20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.3 }
+      )
+    })
+  }
 })
 
 onUnmounted(() => {

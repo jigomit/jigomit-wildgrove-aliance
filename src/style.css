@@ -398,15 +398,92 @@ ul, ol {
 /* Reserve minimum heights for sections to prevent CLS */
 .hero {
   min-height: 100vh;
+  contain: layout style paint size;
 }
 
 .section {
-  min-height: 400px;
+  min-height: 500px;
+  contain: layout style paint;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
+}
+
+/* Specific section heights based on content */
+.mission-section {
+  min-height: 800px;
+  contain-intrinsic-size: auto 800px;
+}
+
+.impact-section {
+  min-height: 600px;
+  contain-intrinsic-size: auto 600px;
+}
+
+.programs-section {
+  min-height: 1200px;
+  contain-intrinsic-size: auto 1200px;
+}
+
+.testimonials-section {
+  min-height: 700px;
+  contain-intrinsic-size: auto 700px;
+}
+
+.cta-section {
+  min-height: 600px;
+  contain-intrinsic-size: auto 600px;
+  contain: layout style paint;
 }
 
 /* Prevent footer CLS */
 .footer {
   contain: layout style;
+  min-height: 650px;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 650px;
+}
+
+/* Fix CLS for hero content */
+.hero-content,
+.hero-badge,
+.hero-title,
+.hero-description,
+.hero-actions,
+.hero-stats {
+  transform: translateZ(0);
+  will-change: opacity, transform;
+}
+
+/* Prevent font-related CLS */
+.hero-title,
+.section-title,
+h1, h2, h3 {
+  font-synthesis: none;
+  text-rendering: optimizeSpeed;
+}
+
+/* Reserve space for images to prevent CLS */
+.hero-background {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* Fixed dimensions for card images */
+.program-card .card-image,
+.blog-card .card-image {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+/* Newsletter section fixed height */
+.footer-newsletter {
+  min-height: 200px;
+}
+
+/* Main footer fixed height */
+.footer-main {
+  min-height: 350px;
 }
 
 /* Optimize images */

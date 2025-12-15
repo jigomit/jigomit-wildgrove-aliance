@@ -1,11 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SectionHeader from '../common/SectionHeader.vue'
 import BaseButton from '../common/BaseButton.vue'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const sectionRef = ref(null)
 const programsRef = ref([])
@@ -46,24 +42,22 @@ const programs = [
 ]
 
 onMounted(() => {
-  programsRef.value.forEach((program, index) => {
-    gsap.fromTo(program,
-      { opacity: 0, y: 80, rotateY: 15 },
-      {
-        opacity: 1,
-        y: 0,
-        rotateY: 0,
-        duration: 0.8,
-        delay: index * 0.15,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: sectionRef.value,
-          start: 'top 60%',
-          toggleActions: 'play none none reverse'
-        }
-      }
+  const runAnimations = async () => {
+    const gsap = (await import('gsap')).default
+    const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+    gsap.registerPlugin(ScrollTrigger)
+
+    gsap.fromTo(programsRef.value,
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 0.4, stagger: 0.1, scrollTrigger: { trigger: sectionRef.value, start: 'top 70%', once: true } }
     )
-  })
+  }
+
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(runAnimations)
+  } else {
+    setTimeout(runAnimations, 200)
+  }
 })
 </script>
 

@@ -1,13 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import AnimatedCounter from '../common/AnimatedCounter.vue'
-
-gsap.registerPlugin(ScrollTrigger)
-
-const sectionRef = ref(null)
-const statsRef = ref([])
 
 const impactStats = [
   {
@@ -39,39 +31,14 @@ const impactStats = [
     description: 'Dedicated individuals making a difference'
   }
 ]
-
-onMounted(() => {
-  // Header animation
-  const headerTl = gsap.timeline({ scrollTrigger: { trigger: sectionRef.value, start: 'top 80%' } })
-  headerTl
-    .fromTo('.impact-header .section-subtitle', { opacity: 0, y: 20, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.4 })
-    .fromTo('.impact-header .section-title', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4 }, '-=0.2')
-    .fromTo('.impact-header .section-description', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4 }, '-=0.2')
-
-  // Stats cards animation
-  gsap.fromTo(statsRef.value,
-    { opacity: 0, y: 40, scale: 0.9 },
-    { opacity: 1, y: 0, scale: 1, duration: 0.4, stagger: 0.08, ease: 'back.out(1.3)', scrollTrigger: { trigger: '.stats-grid', start: 'top 75%' } }
-  )
-
-  // Icons animation
-  gsap.fromTo('.stat-icon',
-    { scale: 0, rotate: -45 },
-    { scale: 1, rotate: 0, duration: 0.4, stagger: 0.08, ease: 'back.out(1.7)', delay: 0.2, scrollTrigger: { trigger: '.stats-grid', start: 'top 75%' } }
-  )
-
-  // Background glow animation
-  gsap.fromTo('.bg-glow', { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 1, stagger: 0.3, scrollTrigger: { trigger: sectionRef.value, start: 'top 80%' } })
-})
+// GSAP animations disabled to prevent CLS
 </script>
 
 <template>
-  <section ref="sectionRef" class="impact-section">
-    <!-- Background Elements -->
+  <section class="impact-section">
+    <!-- Background Elements - simplified to prevent CLS -->
     <div class="impact-bg">
       <div class="bg-pattern"></div>
-      <div class="bg-glow bg-glow--1"></div>
-      <div class="bg-glow bg-glow--2"></div>
     </div>
 
     <div class="container">
@@ -88,7 +55,6 @@ onMounted(() => {
         <div
           v-for="(stat, index) in impactStats"
           :key="index"
-          :ref="el => statsRef[index] = el"
           class="stat-card"
         >
           <div class="stat-icon">

@@ -52,13 +52,10 @@
     }
     </script>
 
-    <!-- Fonts - Optimized loading -->
+    <!-- Fonts - Optimized loading with display=swap -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript>
-      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    </noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
     <!-- Preload critical hero image -->
     <link rel="preload" as="image" href="https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=1280&q=75&auto=format" fetchpriority="high">
@@ -67,9 +64,28 @@
 
     <!-- Critical CSS for above-the-fold content -->
     <style>
-      body { margin: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+      /* System font stack fallback */
+      body {
+        margin: 0;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
       #app { min-height: 100vh; }
-      .hero { min-height: 100vh; background: #1B4332; }
+      /* Reserve hero space to prevent CLS */
+      .hero {
+        min-height: 100vh;
+        background: #1B4332;
+        contain: layout style paint size;
+      }
+      /* Prevent layout shift from fonts */
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      }
+      /* Reserve space for header */
+      .header {
+        height: 80px;
+        contain: layout style;
+      }
     </style>
   </head>
   <body>
