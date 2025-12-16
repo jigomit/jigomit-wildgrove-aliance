@@ -15,8 +15,6 @@
     <meta name="theme-color" content="#1B4332">
 
     <!-- DNS Prefetch and Preconnect for critical resources -->
-    <link rel="dns-prefetch" href="https://images.unsplash.com">
-    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 
@@ -63,8 +61,9 @@
     <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 
     <!-- Preload critical hero image - responsive -->
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=480&q=60&auto=format" media="(max-width: 480px)" fetchpriority="high">
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=800&q=70&auto=format" media="(min-width: 481px)" fetchpriority="high">
+    <link rel="preload" as="image" href="/images/hero-elephant-480.jpg" media="(max-width: 480px)" fetchpriority="high">
+    <link rel="preload" as="image" href="/images/hero-elephant-800.jpg" media="(min-width: 481px) and (max-width: 1024px)" fetchpriority="high">
+    <link rel="preload" as="image" href="/images/hero-elephant-1280.jpg" media="(min-width: 1025px)" fetchpriority="high">
 
     <title>WildGrove Alliance - Wildlife Conservation NGO</title>
 

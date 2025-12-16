@@ -1,13 +1,21 @@
-import { onMounted, onUnmounted, ref } from 'vue'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { onUnmounted } from 'vue'
 
-gsap.registerPlugin(ScrollTrigger)
+let gsapInstance = null
+let ScrollTriggerInstance = null
+
+async function loadGsap() {
+  if (!gsapInstance) {
+    gsapInstance = (await import('gsap')).default
+    const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+    gsapInstance.registerPlugin(ScrollTrigger)
+    ScrollTriggerInstance = ScrollTrigger
+  }
+  return { gsap: gsapInstance, ScrollTrigger: ScrollTriggerInstance }
+}
 
 export function useScrollAnimation() {
-  const animatedElements = ref([])
-
-  const fadeInUp = (element, options = {}) => {
+  const fadeInUp = async (element, options = {}) => {
+    const { gsap } = await loadGsap()
     const defaults = {
       y: 50,
       opacity: 0,
@@ -35,7 +43,8 @@ export function useScrollAnimation() {
     )
   }
 
-  const fadeIn = (element, options = {}) => {
+  const fadeIn = async (element, options = {}) => {
+    const { gsap } = await loadGsap()
     const defaults = {
       opacity: 0,
       duration: 0.8,
@@ -61,7 +70,8 @@ export function useScrollAnimation() {
     )
   }
 
-  const slideInLeft = (element, options = {}) => {
+  const slideInLeft = async (element, options = {}) => {
+    const { gsap } = await loadGsap()
     const defaults = {
       x: -50,
       opacity: 0,
@@ -89,7 +99,8 @@ export function useScrollAnimation() {
     )
   }
 
-  const slideInRight = (element, options = {}) => {
+  const slideInRight = async (element, options = {}) => {
+    const { gsap } = await loadGsap()
     const defaults = {
       x: 50,
       opacity: 0,
@@ -117,7 +128,8 @@ export function useScrollAnimation() {
     )
   }
 
-  const scaleIn = (element, options = {}) => {
+  const scaleIn = async (element, options = {}) => {
+    const { gsap } = await loadGsap()
     const defaults = {
       scale: 0.9,
       opacity: 0,
@@ -145,7 +157,8 @@ export function useScrollAnimation() {
     )
   }
 
-  const staggerFadeInUp = (elements, options = {}) => {
+  const staggerFadeInUp = async (elements, options = {}) => {
+    const { gsap } = await loadGsap()
     const defaults = {
       y: 50,
       opacity: 0,
@@ -175,7 +188,8 @@ export function useScrollAnimation() {
     )
   }
 
-  const parallax = (element, options = {}) => {
+  const parallax = async (element, options = {}) => {
+    const { gsap } = await loadGsap()
     const defaults = {
       yPercent: 20,
       ease: 'none',
@@ -198,7 +212,8 @@ export function useScrollAnimation() {
     })
   }
 
-  const floatingAnimation = (element, options = {}) => {
+  const floatingAnimation = async (element, options = {}) => {
+    const { gsap } = await loadGsap()
     const defaults = {
       y: -20,
       duration: 2,
@@ -219,7 +234,9 @@ export function useScrollAnimation() {
   }
 
   onUnmounted(() => {
-    ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+    if (ScrollTriggerInstance) {
+      ScrollTriggerInstance.getAll().forEach(trigger => trigger.kill())
+    }
   })
 
   return {

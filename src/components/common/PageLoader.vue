@@ -1,24 +1,9 @@
 <script setup>
-import { onMounted, ref } from 'vue'
-import gsap from 'gsap'
+import { ref } from 'vue'
 
 const loaderRef = ref(null)
 const logoRef = ref(null)
 const progressRef = ref(null)
-
-onMounted(() => {
-  const tl = gsap.timeline()
-
-  tl.fromTo(logoRef.value,
-    { opacity: 0, scale: 0.8 },
-    { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(1.7)' }
-  )
-  .fromTo(progressRef.value,
-    { width: '0%' },
-    { width: '100%', duration: 1.2, ease: 'power2.inOut' },
-    '-=0.3'
-  )
-})
 </script>
 
 <template>
@@ -81,6 +66,18 @@ onMounted(() => {
   width: 120px;
   height: 120px;
   margin: 0 auto var(--space-6);
+  animation: logoAppear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes logoAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .logo-svg {
@@ -120,6 +117,14 @@ onMounted(() => {
   height: 100%;
   background: linear-gradient(90deg, var(--color-accent-gold), var(--color-primary-300));
   border-radius: var(--radius-full);
+  animation: progressFill 1.2s ease-in-out 0.3s forwards;
+  width: 0;
+}
+
+@keyframes progressFill {
+  to {
+    width: 100%;
+  }
 }
 
 .loader-text {

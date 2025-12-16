@@ -49,7 +49,7 @@ export default defineConfig({
         assetFileNames: 'assets/[ext]/[name]-[hash].[ext]'
       }
     },
-    cssCodeSplit: false,
+    cssCodeSplit: true,
     sourcemap: false,
     chunkSizeWarningLimit: 500,
     modulePreload: {
@@ -58,7 +58,7 @@ export default defineConfig({
     assetsInlineLimit: 4096
   },
   optimizeDeps: {
-    include: ['vue', 'vue-router', 'gsap', '@vueuse/core']
+    include: ['vue', 'vue-router']
   },
   server: {
     port: 3000,

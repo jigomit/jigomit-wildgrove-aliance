@@ -1,9 +1,5 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
 
 defineProps({
   subtitle: {
@@ -32,20 +28,27 @@ defineProps({
 const headerRef = ref(null)
 
 onMounted(() => {
-  gsap.fromTo(headerRef.value,
-    { opacity: 0, y: 50 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: headerRef.value,
-        start: 'top 80%',
-        toggleActions: 'play none none reverse'
-      }
+  const el = headerRef.value
+  if (!el) return
+
+  const observer = new IntersectionObserver(async (entries) => {
+    if (entries[0].isIntersecting) {
+      observer.disconnect()
+      const gsap = (await import('gsap')).default
+
+      gsap.fromTo(el,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power3.out'
+        }
+      )
     }
-  )
+  }, { rootMargin: '100px' })
+
+  observer.observe(el)
 })
 </script>
 

@@ -10,10 +10,10 @@ const heroRef = ref(null)
     <!-- Background Image - Wildlife Conservation -->
     <div class="hero-background">
       <img
-        src="https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=800&q=70&auto=format"
-        srcset="https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=480&q=60&auto=format 480w,
-                https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=800&q=70&auto=format 800w,
-                https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=1280&q=75&auto=format 1280w"
+        src="/images/hero-elephant-800.jpg"
+        srcset="/images/hero-elephant-480.jpg 480w,
+                /images/hero-elephant-800.jpg 800w,
+                /images/hero-elephant-1280.jpg 1280w"
         sizes="100vw"
         alt="African elephant in wildlife sanctuary - WildGrove Alliance conservation"
         class="hero-image"
@@ -118,20 +118,11 @@ const heroRef = ref(null)
   height: 100%;
   object-fit: cover;
   object-position: center center;
-  transform-style: preserve-3d;
-  animation: subtle-zoom 20s ease-in-out infinite alternate;
   /* Prevent CLS with placeholder background */
   background: var(--color-primary-900, #1B4332);
   aspect-ratio: 16 / 9;
-}
-
-@keyframes subtle-zoom {
-  0% {
-    transform: scale(1) translateZ(0);
-  }
-  100% {
-    transform: scale(1.1) translateZ(50px);
-  }
+  /* Use will-change for initial load only, then remove for better perf */
+  will-change: auto;
 }
 
 .hero-overlay {

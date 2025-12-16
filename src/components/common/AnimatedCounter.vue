@@ -1,9 +1,5 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const props = defineProps({
   value: {
@@ -30,9 +26,13 @@ const props = defineProps({
 
 const counterRef = ref(null)
 const displayValue = ref(0)
+let gsapInstance = null
 
-const animateCounter = () => {
-  gsap.to(displayValue, {
+const animateCounter = async () => {
+  if (!gsapInstance) {
+    gsapInstance = (await import('gsap')).default
+  }
+  gsapInstance.to(displayValue, {
     value: props.value,
     duration: props.duration,
     ease: 'power2.out',
@@ -43,16 +43,21 @@ const animateCounter = () => {
 }
 
 onMounted(() => {
-  ScrollTrigger.create({
-    trigger: counterRef.value,
-    start: 'top 80%',
-    onEnter: animateCounter,
-    once: true
-  })
+  const el = counterRef.value
+  if (!el) return
+
+  const observer = new IntersectionObserver(async (entries) => {
+    if (entries[0].isIntersecting) {
+      observer.disconnect()
+      await animateCounter()
+    }
+  }, { rootMargin: '50px' })
+
+  observer.observe(el)
 })
 
 watch(() => props.value, () => {
-  animateCounter()
+  if (gsapInstance) animateCounter()
 })
 
 const formattedValue = () => {
