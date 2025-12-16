@@ -9,20 +9,29 @@ const heroRef = ref(null)
   <section ref="heroRef" class="hero">
     <!-- Background Image - Wildlife Conservation -->
     <div class="hero-background">
-      <img
-        src="/images/hero-elephant-800.jpg"
-        srcset="/images/hero-elephant-480.jpg 480w,
-                /images/hero-elephant-800.jpg 800w,
-                /images/hero-elephant-1280.jpg 1280w"
-        sizes="100vw"
-        alt="African elephant in wildlife sanctuary - WildGrove Alliance conservation"
-        class="hero-image"
-        loading="eager"
-        fetchpriority="high"
-        decoding="async"
-        width="1280"
-        height="720"
-      >
+      <picture>
+        <source
+          type="image/webp"
+          srcset="/images/hero-elephant-480.webp 480w,
+                  /images/hero-elephant-800.webp 800w,
+                  /images/hero-elephant-1280.webp 1280w"
+          sizes="100vw"
+        >
+        <img
+          src="/images/hero-elephant-800.jpg"
+          srcset="/images/hero-elephant-480.jpg 480w,
+                  /images/hero-elephant-800.jpg 800w,
+                  /images/hero-elephant-1280.jpg 1280w"
+          sizes="100vw"
+          alt="African elephant in wildlife sanctuary - WildGrove Alliance conservation"
+          class="hero-image"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          width="1280"
+          height="847"
+        >
+      </picture>
       <div class="hero-overlay"></div>
     </div>
 

@@ -60,10 +60,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=optional" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 
-    <!-- Preload critical hero image - responsive -->
-    <link rel="preload" as="image" href="/images/hero-elephant-480.jpg" media="(max-width: 480px)" fetchpriority="high">
-    <link rel="preload" as="image" href="/images/hero-elephant-800.jpg" media="(min-width: 481px) and (max-width: 1024px)" fetchpriority="high">
-    <link rel="preload" as="image" href="/images/hero-elephant-1280.jpg" media="(min-width: 1025px)" fetchpriority="high">
+    <!-- Preload critical hero image - WebP with responsive srcset -->
+    <link rel="preload" as="image" type="image/webp" fetchpriority="high"
+          imagesrcset="/images/hero-elephant-480.webp 480w,
+                       /images/hero-elephant-800.webp 800w,
+                       /images/hero-elephant-1280.webp 1280w"
+          imagesizes="100vw">
 
     <title>WildGrove Alliance - Wildlife Conservation NGO</title>
 
