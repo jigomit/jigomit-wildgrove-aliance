@@ -7,12 +7,26 @@ import BaseButton from '../common/BaseButton.vue'
   <section class="cta-section">
     <!-- Background -->
     <div class="cta-background">
-      <img
-        src="https://images.unsplash.com/photo-1535338454770-8be927b5a00b?w=1920&q=90"
-        alt="Majestic giraffe in African savanna"
-        class="cta-image"
-        loading="lazy"
-      >
+      <picture>
+        <source
+          media="(max-width: 640px)"
+          srcset="https://images.unsplash.com/photo-1535338454770-8be927b5a00b?w=640&q=75&auto=format"
+        >
+        <source
+          media="(max-width: 1024px)"
+          srcset="https://images.unsplash.com/photo-1535338454770-8be927b5a00b?w=1024&q=80&auto=format"
+        >
+        <img
+          src="https://images.unsplash.com/photo-1535338454770-8be927b5a00b?w=1920&q=80&auto=format"
+          alt="Majestic giraffe in African savanna"
+          class="cta-image"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="low"
+          width="1920"
+          height="1080"
+        >
+      </picture>
       <div class="cta-overlay"></div>
     </div>
 

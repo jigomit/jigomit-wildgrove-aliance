@@ -39,18 +39,7 @@ const closeMobileMenu = () => {
 }
 
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll)
-
-  // Defer GSAP loading
-  if ('requestIdleCallback' in window) {
-    requestIdleCallback(async () => {
-      const gsap = (await import('gsap')).default
-      gsap.fromTo(headerRef.value,
-        { y: -20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.3 }
-      )
-    })
-  }
+  window.addEventListener('scroll', handleScroll, { passive: true })
 })
 
 onUnmounted(() => {

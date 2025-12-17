@@ -112,7 +112,7 @@ onUnmounted(() => {
           </blockquote>
 
           <div class="author">
-            <img :src="testimonials[currentIndex].image" :alt="testimonials[currentIndex].name" class="author-image">
+            <img :src="testimonials[currentIndex].image" :alt="testimonials[currentIndex].name" class="author-image" width="60" height="60" loading="lazy" decoding="async">
             <div class="author-info">
               <h4 class="author-name">{{ testimonials[currentIndex].name }}</h4>
               <p class="author-role">{{ testimonials[currentIndex].role }}</p>

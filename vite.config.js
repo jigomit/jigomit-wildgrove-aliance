@@ -10,35 +10,50 @@ export default defineConfig({
     }
   },
   build: {
-    target: 'esnext',
+    target: 'es2020',
     minify: 'terser',
     terserOptions: {
       compress: {
         drop_console: true,
         drop_debugger: true,
-        passes: 2,
-        pure_funcs: ['console.log', 'console.info', 'console.debug']
+        passes: 3,
+        pure_funcs: ['console.log', 'console.info', 'console.debug', 'console.warn'],
+        dead_code: true,
+        unused: true,
+        conditionals: true,
+        evaluate: true,
+        booleans: true,
+        loops: true,
+        if_return: true,
+        join_vars: true,
+        collapse_vars: true,
+        reduce_vars: true
       },
       mangle: {
-        safari10: true
+        safari10: true,
+        toplevel: true
       },
       format: {
-        comments: false
+        comments: false,
+        ecma: 2020
       }
     },
     rollupOptions: {
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
+            // Keep Vue core minimal and separate
+            if (id.includes('vue') && !id.includes('vue-router') && !id.includes('@vueuse')) {
+              return 'vue-core'
+            }
             if (id.includes('vue-router')) {
-              return 'vendor'
+              return 'vue-router'
             }
-            if (id.includes('vue')) {
-              return 'vendor'
-            }
+            // GSAP is loaded lazily, keep it separate
             if (id.includes('gsap')) {
               return 'gsap'
             }
+            // VueUse is loaded on demand
             if (id.includes('@vueuse')) {
               return 'vueuse'
             }
@@ -53,12 +68,23 @@ export default defineConfig({
     sourcemap: false,
     chunkSizeWarningLimit: 500,
     modulePreload: {
-      polyfill: true
+      polyfill: false,
+      resolveDependencies: (filename, deps) => {
+        // Only preload critical chunks for initial render
+        return deps.filter(dep =>
+          dep.includes('vue-core') ||
+          dep.includes('vue-router') ||
+          dep.includes('index') ||
+          dep.includes('HomePage')
+        )
+      }
     },
-    assetsInlineLimit: 4096
+    assetsInlineLimit: 8192,
+    reportCompressedSize: false
   },
   optimizeDeps: {
-    include: ['vue', 'vue-router']
+    include: ['vue', 'vue-router'],
+    exclude: ['gsap', '@vueuse/core']
   },
   server: {
     port: 3000,
