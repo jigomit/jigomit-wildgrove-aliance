@@ -298,8 +298,7 @@ const heroRef = ref(null)
   align-items: center;
   gap: var(--space-6);
   padding: var(--space-6) var(--space-8);
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  background: rgba(13, 40, 24, 0.8);
   border-radius: var(--radius-2xl);
   border: 1px solid rgba(255, 255, 255, 0.15);
   /* Prevent CLS */
@@ -379,8 +378,7 @@ const heroRef = ref(null)
     justify-content: center;
     padding: var(--space-4);
     gap: var(--space-4);
-    background: rgba(13, 40, 24, 0.7);
-    backdrop-filter: blur(8px);
+    background: rgba(13, 40, 24, 0.85);
   }
 
   .stat-divider {

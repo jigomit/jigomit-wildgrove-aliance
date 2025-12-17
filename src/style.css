@@ -570,18 +570,28 @@ body {
   font-display: swap;
 }
 
-/* Optimize backdrop-filter performance */
-.hero-stats,
-.volunteer-card,
-.stat-card,
-.quick-stats {
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  transform: translateZ(0);
+/* Optimize backdrop-filter performance - desktop only */
+@media (min-width: 1025px) {
+  .hero-stats,
+  .volunteer-card,
+  .stat-card,
+  .quick-stats {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
 }
 
 /* Mobile performance optimizations */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+  /* Remove backdrop-filter on mobile/tablet for better performance */
+  .hero-stats,
+  .volunteer-card,
+  .stat-card,
+  .quick-stats {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
   /* Reduce parallax on mobile */
   .hero-background,
   .cta-background {
@@ -595,15 +605,6 @@ body {
     display: none !important;
   }
 
-  /* Simplify backdrop blur on mobile */
-  .hero-stats,
-  .volunteer-card,
-  .stat-card,
-  .quick-stats {
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px);
-  }
-
   /* Reduce shadow complexity */
   .card,
   .donation-card,
@@ -615,16 +616,6 @@ body {
 
 /* Further optimizations for low-end devices */
 @media (max-width: 480px) {
-  /* Remove all backdrop filters on very small devices */
-  .hero-stats,
-  .volunteer-card,
-  .stat-card,
-  .quick-stats {
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    background: rgba(13, 40, 24, 0.9);
-  }
-
   /* Disable all transforms for performance */
   .card:hover,
   .donation-card:hover,

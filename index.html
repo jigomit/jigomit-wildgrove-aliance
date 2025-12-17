@@ -6,10 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="theme-color" content="#1B4332">
 
-    <!-- Preconnect to critical origins FIRST -->
+    <!-- DNS prefetch and preconnect to critical origins FIRST -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
 
     <!-- Preload critical hero image - mobile first with media queries -->
     <link rel="preload" as="image" type="image/webp" fetchpriority="high"
@@ -69,9 +70,9 @@
     }
     </script>
 
-    <!-- Font CSS with swap display - load asynchronously -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
+    <!-- Font CSS with swap display - load asynchronously, reduced weights for faster loading -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet"></noscript>
 
     <title>WildGrove Alliance - Wildlife Conservation NGO</title>
 
@@ -89,7 +90,7 @@
       .container{width:100%;max-width:1440px;margin:0 auto;padding:0 var(--space-6)}
       /* Header Critical */
       .header{position:fixed;top:0;left:0;width:100%;height:var(--header-height);z-index:300;background:transparent;transition:all var(--transition-base)}
-      .header--scrolled{background:rgba(255,255,255,.95);backdrop-filter:blur(20px);box-shadow:0 4px 6px -1px rgba(0,0,0,.1)}
+      .header--scrolled{background:rgba(255,255,255,.98);box-shadow:0 4px 6px -1px rgba(0,0,0,.1)}
       .header__container{display:flex;align-items:center;justify-content:space-between;height:100%}
       .header__logo{display:flex;align-items:center;gap:var(--space-3);z-index:10}
       .logo-icon{width:48px;height:48px}
@@ -113,7 +114,7 @@
       .title-highlight{background:linear-gradient(135deg,var(--color-accent-gold) 0%,#81C784 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
       .hero-description{font-size:var(--text-xl);color:rgba(255,255,255,.85);line-height:1.625;max-width:600px;margin-bottom:2.5rem}
       .hero-actions{display:flex;flex-wrap:wrap;gap:var(--space-4);margin-bottom:3rem}
-      .hero-stats{display:flex;align-items:center;gap:var(--space-6);padding:var(--space-6) 2rem;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border-radius:1.5rem;border:1px solid rgba(255,255,255,.15);min-height:100px;contain:layout style}
+      .hero-stats{display:flex;align-items:center;gap:var(--space-6);padding:var(--space-6) 2rem;background:rgba(13,40,24,.8);border-radius:1.5rem;border:1px solid rgba(255,255,255,.15);min-height:100px;contain:layout style}
       .stat{text-align:center}
       .stat-value{display:block;font-family:var(--font-display);font-size:1.875rem;font-weight:var(--font-bold);color:var(--text-light);line-height:1;margin-bottom:0.25rem}
       .stat-label{font-size:var(--text-sm);color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:0.025em}
