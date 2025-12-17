@@ -2,7 +2,7 @@
 
 A wildlife conservation NGO website built with Vue 3 and Vite, featuring optimized performance and modern web practices.
 
-**Live Demo:** https://jigomit-wildgrove-a.netlify.app/
+**Live Demo:** https://wildgrove-a.netlify.app/
 
 ## Tech Stack
 
@@ -23,20 +23,22 @@ A wildlife conservation NGO website built with Vue 3 and Vite, featuring optimiz
 
 ## Performance Optimizations
 
-- **WebP Images:** Hero images converted to WebP (~48% smaller)
-- **Responsive Preloading:** Using `imagesrcset` for optimal image delivery
+- **WebP Images:** Hero images in multiple sizes (480w, 800w, 1280w)
+- **Mobile-First Preloading:** Media query based image preloads
+- **Async Font Loading:** Non-blocking Google Fonts with reduced weights
+- **No backdrop-filter on Mobile:** Removed expensive GPU effects for mobile
 - **Code Splitting:** Route-based and component-level lazy loading
 - **Critical CSS:** Inlined above-the-fold styles
-- **Font Loading:** Async Google Fonts with `display=optional`
+- **DNS Prefetch:** Early DNS resolution for external resources
 - **GSAP Lazy Loading:** Animation library loaded on demand
 
-## Lighthouse Scores
+## Lighthouse Scores (Mobile)
 
 | Metric | Score |
 |--------|-------|
 | Performance | 95+ |
 | Accessibility | 94 |
-| Best Practices | 100 |
+| Best Practices | 96 |
 | SEO | 100 |
 
 ## Getting Started
@@ -71,6 +73,15 @@ src/
 public/
 └── images/          # Optimized images (JPG + WebP)
 ```
+
+## Pages
+
+- **Home** - Hero section, mission, programs, impact stats, testimonials
+- **About** - Story, values, timeline, team, partners
+- **Programs** - Conservation initiatives and success stories
+- **Get Involved** - Donation, volunteer opportunities
+- **Contact** - Contact form, office locations, FAQ
+- **Blog** - Conservation articles and news
 
 ## License
 
