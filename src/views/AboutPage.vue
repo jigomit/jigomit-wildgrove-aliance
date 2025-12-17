@@ -72,6 +72,17 @@ const values = [
   }
 ]
 
+const partners = [
+  { name: 'World Wildlife Fund', icon: 'globe' },
+  { name: 'Conservation International', icon: 'leaf' },
+  { name: 'The Nature Conservancy', icon: 'tree' },
+  { name: 'Wildlife Conservation Society', icon: 'shield' },
+  { name: 'IUCN', icon: 'globe' },
+  { name: 'Rainforest Alliance', icon: 'leaf' },
+  { name: 'Ocean Conservancy', icon: 'mountain' },
+  { name: 'African Wildlife Foundation', icon: 'sun' }
+]
+
 onMounted(async () => {
   await nextTick()
 
@@ -344,11 +355,42 @@ onMounted(async () => {
         />
 
         <div class="partners-grid">
-          <div v-for="i in 8" :key="i" class="partner-logo">
-            <svg viewBox="0 0 120 60">
-              <rect width="120" height="60" rx="8" fill="var(--bg-secondary)"/>
-              <text x="60" y="35" text-anchor="middle" fill="var(--text-tertiary)" font-size="12" font-weight="500">Partner {{ i }}</text>
-            </svg>
+          <div v-for="partner in partners" :key="partner.name" class="partner-logo">
+            <div class="partner-card">
+              <div class="partner-icon">
+                <svg v-if="partner.icon === 'globe'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                </svg>
+                <svg v-else-if="partner.icon === 'leaf'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+                  <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+                </svg>
+                <svg v-else-if="partner.icon === 'heart'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                </svg>
+                <svg v-else-if="partner.icon === 'shield'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+                <svg v-else-if="partner.icon === 'tree'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M12 22V8"/>
+                  <path d="M5 12H2a10 10 0 0 0 20 0h-3"/>
+                  <path d="M12 8a6 6 0 0 0-6 6h12a6 6 0 0 0-6-6Z"/>
+                  <path d="M12 2v6"/>
+                </svg>
+                <svg v-else-if="partner.icon === 'mountain'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="m8 3 4 8 5-5 5 15H2L8 3z"/>
+                </svg>
+                <svg v-else-if="partner.icon === 'sun'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="12" cy="12" r="4"/>
+                  <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+                </svg>
+                <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+              </div>
+              <span class="partner-name">{{ partner.name }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -826,18 +868,57 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.6;
-  transition: opacity var(--transition-base);
+  opacity: 0.8;
+  transition: all var(--transition-base);
 }
 
 .partner-logo:hover {
   opacity: 1;
+  transform: translateY(-4px);
 }
 
-.partner-logo svg {
+.partner-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
   width: 100%;
-  max-width: 150px;
-  height: auto;
+  min-height: 140px;
+  transition: all var(--transition-base);
+}
+
+.partner-logo:hover .partner-card {
+  box-shadow: var(--shadow-md);
+}
+
+.partner-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary-50);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+}
+
+.partner-icon svg {
+  width: 100%;
+  height: 100%;
+  color: var(--color-primary-600);
+}
+
+.partner-name {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  text-align: center;
+  line-height: 1.3;
 }
 
 /* Mobile Responsive */
