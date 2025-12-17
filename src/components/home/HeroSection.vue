@@ -27,7 +27,7 @@ const heroRef = ref(null)
           class="hero-image"
           loading="eager"
           fetchpriority="high"
-          decoding="async"
+          decoding="sync"
           width="1280"
           height="847"
         >
